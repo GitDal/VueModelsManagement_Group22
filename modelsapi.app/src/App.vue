@@ -2,12 +2,40 @@
   <div id="app">
       <div id="nav">
           <router-link to="/">Home</router-link> |
-          <router-link to="/manager">Manager</router-link> |
-          <router-link to="/login">Login</router-link>
+          <router-link to="/manager" v-if="loggedIn && isManager">Manager</router-link>
+          <router-link to="/model" v-if="loggedIn && isModel">Manager</router-link>|
+          <router-link to="/login" v-if="!loggedIn">Login</router-link>
+          <a to="/" v-if="loggedIn" @click="logout">Logout</a>
       </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+    export default {
+        name: 'App',
+        methods: {
+            logout() {
+                this.$store.dispatch('logout');
+            }
+        },
+        computed: {
+            loggedIn() {
+                return this.$store.getters.isLoggedIn;
+            },
+            isManager() {
+                let id = this.$store.getters.userId;
+
+                return (id == '-1');
+            },
+            isModel() {
+                let id = this.$store.getters.userId;
+
+                return (id !== '-1' && id !== 'unknown');
+            }
+        }
+    }
+</script>
 
 <style>
 #app {
