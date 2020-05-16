@@ -3,8 +3,10 @@
     <div v-if="isLoading">
         <p>Loading content..</p>
     </div>
-    <div v-for="model in models" :key="model.efModelId">
-        <p>{{model.firstname}}</p>
+    <div v-if="isAuthorized">
+        <div v-for="model in models" :key="model.efModelId">
+        <p>{{model.email}}</p>
+    </div>
     </div>
 </div>
 </template>
@@ -14,29 +16,13 @@ name: 'ModelsList',
     data(){
         return{
         isLoading: true,
+        isAuthorized: false,
         message: '',
         models: []
         }
     },
     methods:{
         GetManagers(){
-            // fetch('https://localhost:44368/api/Models', { 
-            //     method: 'GET',
-            //     credentials: 'include',
-            //     headers: {
-            //         'Authorization': 'Bearer ' + localStorage.getItem("token"),
-            //         'Content-Type': 'application/json' 
-            //         }})
-            // .then(responseJson => { 
-            //     //var items = JSON.parse(responseJson);
-            //     //this.models = items;
-            //     this.models = responseJson;
-            //     this.isLoading = false;
-            // })
-            // .catch(error => {
-            //     this.isLoading = false;
-            //     this.message = 'Something bad happened ' + error;
-            // });
             fetch('https://localhost:44368/api/Models', { 
                 method: 'GET',
                 credentials: 'include',
@@ -44,9 +30,16 @@ name: 'ModelsList',
                     'Authorization': 'Bearer ' + localStorage.getItem("token"),
                     'Content-Type': 'application/json' 
                     }})
-            .then(res => res.json())
+            .then(res => {
+                if(res.status == 200)
+                {
+                    this.isAuthorized = true;
+                    return res.json();
+                }
+            })
             .then(responseJson => { 
                 this.models = responseJson;
+                this.isLoading = false;
             })
             .catch(error => {
                 this.isLoading = false;

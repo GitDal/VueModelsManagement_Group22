@@ -10,7 +10,7 @@
         <div class="field">
             <label class="label">Password</label>
             <div class="control">
-                <input v-model="password" class="input" type="text" placeholder="Enter Password">
+                <input v-model="password" class="input" type="password" placeholder="Enter Password">
             </div>
         </div>
         <div class="field">
@@ -26,14 +26,14 @@
 name: 'LoginForm',
     data(){
         return{
-        username: "",
-        password: "",
-        statusMsg: ""
+        username: '',
+        password: '',
+        statusMsg: ''
         }
     },
     methods:{
         formSubmit(){
-            fetch("https://localhost:44368/api/Account/login", {
+            fetch('https://localhost:44368/api/Account/login', {
                 method: 'POST',
                 body: JSON.stringify({
                       email: this.username,
@@ -44,9 +44,9 @@ name: 'LoginForm',
             .then((token) => {
                 localStorage.setItem("token", token.jwt);
                 if(token.jwt == undefined)
-                    this.statusMsg = "Unsucessful";
+                    this.statusMsg = 'Unsucessful';
                 else
-                    this.statusMsg = "Sucessful";
+                    this.statusMsg = 'Sucessful';
             })
             .catch(error => console.error('Error:', error));
         }
