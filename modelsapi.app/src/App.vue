@@ -5,6 +5,8 @@
           <router-link to="/manager" v-if="(loggedIn && isManager)">Manager</router-link>
           <router-link to="/model" v-if="(loggedIn && isModel)">Model</router-link> 
           <span v-if="loggedIn"> | </span>
+          <router-link to="/createModel" v-if="(loggedIn && isManager)">CreateModel</router-link>
+          <span v-if="loggedIn"> | </span>
           <router-link to="/login" v-if="!loggedIn">Login</router-link>
           <a v-if="loggedIn" @click="logout">Logout</a>
       </div>
