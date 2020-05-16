@@ -3,6 +3,7 @@
       <div id="nav">
           <router-link to="/">Home</router-link> |
           <router-link to="/manager">Manager</router-link> |
+          <router-link to="/createModel">CreateModel</router-link> |
           <router-link to="/login">Login</router-link>
       </div>
     <router-view/>

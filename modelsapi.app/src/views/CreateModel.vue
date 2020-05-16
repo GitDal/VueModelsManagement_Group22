@@ -1,5 +1,5 @@
 <template>
-  <div class="loginForm">
+  <div class="createModel">
         <table>
             <tr>
                 <td><label>Firstname</label></td>
