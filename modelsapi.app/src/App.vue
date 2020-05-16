@@ -2,10 +2,11 @@
   <div id="app">
       <div id="nav">
           <router-link to="/">Home</router-link> |
-          <router-link to="/manager" v-if="loggedIn && isManager">Manager</router-link>
-          <router-link to="/model" v-if="loggedIn && isModel">Manager</router-link>|
+          <router-link to="/manager" v-if="(loggedIn && isManager)">Manager</router-link>
+          <router-link to="/model" v-if="(loggedIn && isModel)">Model</router-link> 
+          <span v-if="loggedIn"> | </span>
           <router-link to="/login" v-if="!loggedIn">Login</router-link>
-          <a to="/" v-if="loggedIn" @click="logout">Logout</a>
+          <a v-if="loggedIn" @click="logout">Logout</a>
       </div>
     <router-view/>
   </div>
@@ -17,6 +18,7 @@
         methods: {
             logout() {
                 this.$store.dispatch('logout');
+                this.$router.push('/'); // Redirect to Home
             }
         },
         computed: {
@@ -26,7 +28,7 @@
             isManager() {
                 let id = this.$store.getters.userId;
 
-                return (id == '-1');
+                return (id === '-1');
             },
             isModel() {
                 let id = this.$store.getters.userId;
@@ -53,6 +55,12 @@
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+  text-decoration: underline;
+}
+
+#nav a:hover {
+  color: #42b983;
+  cursor: pointer;
 }
 
 #nav a.router-link-exact-active {

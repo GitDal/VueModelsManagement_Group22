@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+// Taget udgangspunkt i:
+// medium.com/front-end-weekly/persisting-user-authentication-with-vuex-in-vue-b1514d5d3278
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({

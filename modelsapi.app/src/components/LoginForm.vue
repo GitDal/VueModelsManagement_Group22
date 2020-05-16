@@ -22,7 +22,8 @@ name: 'LoginForm',
         return{
         username: '',
         password: '',
-        statusMsg: ''
+        statusMsg: '',
+        modelId: ''
         }
     },
     methods:{
@@ -41,10 +42,24 @@ name: 'LoginForm',
                     this.statusMsg = 'Unsucessful';
                 else
                 {
+                    let jwtJson = this.parseJwt(token.jwt);
                     this.statusMsg = 'Sucessful';
+                    this.$store.commit('login', jwtJson.ModelId);
+                    this.$router.push('/'); // Redirect to home ('/')
                 }
             })
             .catch(error => console.error('Error:', error));
+        },
+        parseJwt(token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            console.log(jsonPayload);
+
+            return JSON.parse(jsonPayload);
         }
     }
 }
