@@ -41,7 +41,13 @@ name: 'LoginForm',
                 headers: new Headers({
                     'Content-Type': 'application/json'})})
             .then(res => res.json())
-            .then((token) => localStorage.setItem("token", token.jwt))
+            .then((token) => {
+                localStorage.setItem("token", token.jwt);
+                if(token.jwt == undefined)
+                    this.statusMsg = "Unsucessful";
+                else
+                    this.statusMsg = "Sucessful";
+            })
             .catch(error => console.error('Error:', error));
         }
     }
