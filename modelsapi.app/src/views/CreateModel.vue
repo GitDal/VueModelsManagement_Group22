@@ -3,74 +3,75 @@
         <table>
             <tr>
                 <td><label>Firstname</label></td>
-                <td><input v-model="Firstname" class="input" type="text" placeholder="Enter Firstname"></td>
+                <td><input  v-model="Firstname" class="input" type="text" placeholder="Enter Firstname"></td>
             </tr>
             <tr>
                 <td><label>Lastname</label></td>
-                <td><input v-model="Lastname" class="input" type="text" placeholder="Enter Lastname"></td>
+                <td><input  v-model="Lastname" class="input" type="text" placeholder="Enter Lastname"></td>
             </tr>
             <tr>
                 <td><label>Email</label></td>
-                <td><input v-model="Email" class="input" type="text" placeholder="Enter Email"></td>
+                <td><input v-validate="'required'" v-model="Email" class="input" type="text" placeholder="Enter Email"></td>
             </tr>
             <tr>
                 <td><label>PhoneNo</label></td>
-                <td><input v-model="PhoneNo" class="input" type="text" placeholder="Enter PhoneNo"></td>
+                <td><input v-validate="'required'" v-model="PhoneNo" class="input" type="text" placeholder="Enter PhoneNo"></td>
             </tr>
             <tr>
                 <td><label>AddresLine1</label></td>
-                <td><input v-model="AddresLine1" class="input" type="text" placeholder="Enter AddresLine1"></td>
+                <td><input v-validate="'required'" v-model="AddresLine1" class="input" type="text" placeholder="Enter AddresLine1"></td>
             </tr>
             <tr>
                 <td><label>AddresLine2</label></td>
-                <td><input v-model="AddresLine2" class="input" type="text" placeholder="Enter AddresLine2"></td>
+                <td><input v-validate="'required'" v-model="AddresLine2" class="input" type="text" placeholder="Enter AddresLine2"></td>
             </tr>
             <tr>
                 <td><label>Zip</label></td>
-                <td><input v-model="Zip" class="input" type="text" placeholder="Enter Zip"></td>
+                <td><input v-validate="'required'" v-model="Zip" class="input" type="text" placeholder="Enter Zip"></td>
             </tr>
             <tr>
                 <td><label>City</label></td>
-                <td><input v-model="City" class="input" type="text" placeholder="Enter City"></td>
+                <td><input v-validate="'required'" v-model="City" class="input" type="text" placeholder="Enter City"></td>
             </tr>
             <tr>
                 <td><label>Country</label></td>
-                <td><input v-model="Country" class="input" type="text" placeholder="Enter Country"></td>
+                <td><input v-validate="'required'" v-model="Country" class="input" type="text" placeholder="Enter Country"></td>
             </tr>
             <tr>
                 <td><label>BirthDate</label></td>
-                <td><input v-model="BirthDate" class="input" type="date"></td>
+                <td><input v-validate="'required'" v-model="BirthDate" class="input" type="date"></td>
             </tr>
             <tr>
                 <td><label>Nationality</label></td>
-                <td><input v-model="Nationality" class="input" type="text" placeholder="Enter Nationality"></td>
+                <td><input v-validate="'required'" v-model="Nationality" class="input" type="text" placeholder="Enter Nationality"></td>
             </tr>
             <tr>
                 <td><label>Height</label></td>
-                <td><input v-model="Height" class="input" type="number" placeholder="Enter Height"></td>
+                <td><input v-validate="'required'" v-model="Height" class="input" type="number" placeholder="Enter Height"></td>
             </tr>
             <tr>
                 <td><label>ShoeSize</label></td>
-                <td><input v-model="ShoeSize" class="input" type="number" placeholder="Enter ShoeSize"></td>
+                <td><input v-validate="'required'" v-model="ShoeSize" class="input" type="number" placeholder="Enter ShoeSize"></td>
             </tr>
             <tr>
                 <td><label>HairColor</label></td>
-                <td><input v-model="HairColor" class="input" type="text" placeholder="Enter HairColor"></td>
+                <td><input v-validate="'required'" v-model="HairColor" class="input" type="text" placeholder="Enter HairColor"></td>
             </tr>
             <tr>
                 <td><label>EyeColor</label></td>
-                <td><input v-model="EyeColor" class="input" type="text" placeholder="Enter EyeColor"></td>
+                <td><input v-validate="'required'" v-model="EyeColor" class="input" type="text" placeholder="Enter EyeColor"></td>
             </tr>
             <tr>
                 <td><label>Comments</label></td>
-                <td><input v-model="Comments" class="input" type="text" placeholder="Enter Comments"></td>
+                <td><input v-validate="'required'" v-model="Comments" class="input" type="text" placeholder="Enter Comments"></td>
             </tr>
             <tr>
                 <td><label>Password</label></td>
-                <td><input v-model="Password" class="input" type="text" placeholder="Enter Password"></td>
+                <td><input v-validate="'required'" v-model="Password" class="input" type="text" placeholder="Enter Password"></td>
             </tr>
         </table>
         <button @click="CreateModel">Create</button>
+        <p>{{statusMsg}}</p>
     </div>
 </template>
 
@@ -94,7 +95,8 @@ name: 'ModelsList',
         HairColor: '',
         EyeColor: '',
         Comments: '',
-        Password: ''
+        Password: '',
+        statusMsg: ''
         }
     },
     methods:{
@@ -113,8 +115,8 @@ name: 'ModelsList',
                     country: this.Country,
                     birthDate: this.BirthDate,
                     nationality: this.Nationality,
-                    height: this.Height,
-                    shoeSize: this.ShoeSize,
+                    height: parseInt(this.Height),
+                    shoeSize: parseInt(this.ShoeSize),
                     hairColor: this.HairColor,
                     eyeColor: this.EyeColor,
                     comments: this.Comments,
@@ -126,14 +128,14 @@ name: 'ModelsList',
                     'Content-Type': 'application/json' 
                     }})
             .then(res => {
-                if(res.status == 200)
+                if(res.status !== 201)
                 {
-                    console.log(res);
-                    return res.json();
+                    this.statusMsg = "Unsuccesfuld"
                 }
-            })
-            .then(responseJson => { 
-                console.log(responseJson);
+                else{
+                    var obj = res.json();
+                    this.statusMsg = "Succesfully created model with modelId: " + obj.efModelId + " and accountId: " + obj.efAccountId;
+                }
             })
             .catch(error => {
                 console.error(error);
