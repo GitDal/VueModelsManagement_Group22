@@ -3,10 +3,8 @@
     <div v-if="isLoading">
         <p>Loading content..</p>
     </div>
-    <div v-if="isAuthorized">
         <div v-for="model in models" :key="model.efModelId">
         <p>{{model.email}}</p>
-    </div>
     </div>
 </div>
 </template>
@@ -16,13 +14,12 @@ name: 'ModelsList',
     data(){
         return{
         isLoading: true,
-        isAuthorized: false,
         message: '',
         models: []
         }
     },
     methods:{
-        GetManagers(){
+        GetModels(){
             fetch('https://localhost:44368/api/Models', { 
                 method: 'GET',
                 credentials: 'include',
@@ -33,7 +30,6 @@ name: 'ModelsList',
             .then(res => {
                 if(res.status == 200)
                 {
-                    this.isAuthorized = true;
                     return res.json();
                 }
             })
@@ -48,7 +44,7 @@ name: 'ModelsList',
         }
     },
     mounted(){
-        this.GetManagers();
+        this.GetModels();
     }
 }
 

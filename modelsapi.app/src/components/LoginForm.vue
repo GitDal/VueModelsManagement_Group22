@@ -1,23 +1,17 @@
 <template>
     <div class="loginForm">
-    <section class="form">
-        <div class="field">
-            <label class="label">Name</label>
-            <div class="control">
-                <input v-model="username" class="input" type="text" placeholder="Enter Email">
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Password</label>
-            <div class="control">
-                <input v-model="password" class="input" type="password" placeholder="Enter Password">
-            </div>
-        </div>
-        <div class="field">
-            <button @click="formSubmit">Login</button>
-        </div>
-    </section>
-    <p>{{statusMsg}}</p>
+        <table>
+            <tr>
+                <td><label>Name</label></td>
+                <td><input v-model="username" class="input" type="text" placeholder="Enter Email"></td>
+            </tr>
+            <tr>
+                <td><label>Password</label></td>
+                <td><input v-model="password" class="input" type="password" placeholder="Enter Password"></td>
+            </tr>
+        </table>
+        <button @click="formSubmit">Login</button>
+        <p>{{statusMsg}}</p>
 
     </div>
 </template>
@@ -46,7 +40,9 @@ name: 'LoginForm',
                 if(token.jwt == undefined)
                     this.statusMsg = 'Unsucessful';
                 else
+                {
                     this.statusMsg = 'Sucessful';
+                }
             })
             .catch(error => console.error('Error:', error));
         }
@@ -57,5 +53,8 @@ name: 'LoginForm',
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+    table{
+        text-align: left;
+        margin: 2% auto 2% auto;
+    }
 </style>
