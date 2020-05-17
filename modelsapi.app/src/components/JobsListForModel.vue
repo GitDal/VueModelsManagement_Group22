@@ -3,15 +3,15 @@
         <div v-if="isLoading">
             <p>Loading content..</p>
         </div>
-        <b-table-simple responsive="true" hover striped bordered>
+        <b-table-simple responsive="true" hover striped bordered margin="10px">
             <b-thead>
                 <b-tr>
-                    <b-td>Customer</b-td>
-                    <b-td>Start Date</b-td>
-                    <b-td>Days</b-td>
-                    <b-td>Location</b-td>
-                    <b-td>Comments</b-td>
-                    <b-td>Add Expense</b-td>
+                    <b-th>Customer</b-th>
+                    <b-th>Start Date</b-th>
+                    <b-th>Days</b-th>
+                    <b-th>Location</b-th>
+                    <b-th>Comments</b-th>
+                    <b-th>Add Expense</b-th>
                 </b-tr>
             </b-thead>
             <b-tbody>
