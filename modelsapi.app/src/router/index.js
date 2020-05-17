@@ -35,7 +35,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "manager" */ '../views/Model.vue')
     },
     {
-        path: '/createModel',
+        path: '/manager/createModel',
         name: 'CreateModel',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
@@ -43,7 +43,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "createModel" */ '../views/CreateModel.vue')
     },
     {
-        path: '/createManager',
+        path: '/manager/createManager',
         name: 'CreateManager',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
