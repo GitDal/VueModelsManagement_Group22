@@ -94,7 +94,7 @@ namespace ModelsApi.Controllers
         [HttpPost]
         public async Task<ActionResult<EfManager>> PostManager(Manager managerDto)
         {
-            if (managerDto == null || string.IsNullOrWhiteSpace(managerDto.Email) || string.IsNullOrWhiteSpace(managerDto.Password))
+            if (managerDto == null)
                 return BadRequest("Data is missing");
             var manager = new EfManager();
             manager.Email = managerDto.Email.ToLowerInvariant();
