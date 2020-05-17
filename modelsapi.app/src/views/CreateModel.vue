@@ -135,7 +135,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label>Comments*</label></td>
+                <td><label>Comments</label></td>
                 <td><input v-model="Comments" class="input" type="text" placeholder="Enter Comments"><p></p></td>
             </tr>
             <tr>
@@ -190,10 +190,10 @@ name: 'ModelData',
         Zip: '',
         City: '',
         Country: '',
-        BirthDate: Date,
+        BirthDate: '',
         Nationality: '',
-        Height: Number,
-        ShoeSize: Number,
+        Height: '',
+        ShoeSize: '',
         HairColor: '',
         EyeColor: '',
         Comments: '',
