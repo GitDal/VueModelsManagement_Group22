@@ -1,4 +1,4 @@
-<template>
+<!--<template>
     <div>
         <div v-if="isLoading">
             <p>Loading content..</p>
@@ -117,4 +117,4 @@ export default {
         text-decoration-color: aqua;
     }
 
-</style>
+</style>-->
