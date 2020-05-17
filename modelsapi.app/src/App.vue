@@ -9,6 +9,8 @@
           <span v-if="(loggedIn && isManager)"> | </span>
           <router-link to="/createManager" v-if="(loggedIn && isManager)">CreateManager</router-link>
           <span v-if="(loggedIn && isManager)"> | </span>
+          <router-link to="/createJob" v-if="(loggedIn && isManager)">CreateJob</router-link>
+          <span v-if="(loggedIn && isManager)"> | </span>
           <router-link to="/login" v-if="!loggedIn">Login</router-link>
           <a v-if="loggedIn" @click="logout">Logout</a>
       </div>

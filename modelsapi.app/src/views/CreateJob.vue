@@ -1,51 +1,55 @@
 <template>
-<div>
-    <h2>Create Manager</h2>
-  <ValidationObserver v-slot="{ handleSubmit }">
-    <form @submit.prevent="handleSubmit(CreateManager)">
+    <div>
+    <h2>Create Job</h2>
+    <ValidationObserver v-slot="{ handleSubmit }">
+    <form @submit.prevent="handleSubmit(CreateJob)">
         <table>
             <tr>
-                <td><label>Firstname*</label></td>
+                <td><label>Costumer*</label></td>
                 <td>
-                    <ValidationProvider name="firstname" rules="required" v-slot="{ errors }">
-                        <input v-model="Firstname" class="input" type="text" placeholder="Enter Firstname">
+                    <ValidationProvider name="costumer" rules="required" v-slot="{ errors }">
+                        <input v-model="Costumer" class="input" type="text" placeholder="Enter Costumer">
                         <p>{{errors[0]}}</p>
                     </ValidationProvider>
                 </td>
             </tr>
             <tr>
-                <td><label>Lastname*</label></td>
+                <td><label>StartDate*</label></td>
                 <td>
-                    <ValidationProvider name="lastname" rules="required" v-slot="{ errors }">
-                        <input v-model="Lastname" class="input" type="text" placeholder="Enter Lastname">
+                    <ValidationProvider name="startDate" rules="required" v-slot="{ errors }">
+                        <input v-model="StartDate" class="input" type="date" placeholder="Enter Start Date">
                         <p>{{errors[0]}}</p>
                     </ValidationProvider>
                 </td>
             </tr>   
             <tr>
-                <td><label>Email*</label></td>
+                <td><label>Days*</label></td>
                 <td>
-                    <ValidationProvider name="email" rules="email|required" v-slot="{ errors }">
-                        <input v-model="Email" class="input" type="text" placeholder="Enter Email">
+                    <ValidationProvider name="days" rules="required" v-slot="{ errors }">
+                        <input v-model="Days" class="input" type="number" placeholder="Enter Days">
                         <p>{{errors[0]}}</p>
                     </ValidationProvider>
                 </td>
             </tr>
             <tr>
-                <td><label>Password*</label></td>
+                <td><label>Location*</label></td>
                 <td>
-                    <ValidationProvider name="password" rules="min:6|required" v-slot="{ errors }">
-                        <input v-model="Password" class="input" type="text" placeholder="Enter Password">
+                    <ValidationProvider name="location" rules="required" v-slot="{ errors }">
+                        <input v-model="Location" class="input" type="text" placeholder="Enter Location">
                         <p>{{errors[0]}}</p>
                     </ValidationProvider>
                 </td>
+            </tr>
+            <tr>
+                <td><label>Comments*</label></td>
+                <td><input v-model="Comments" class="input" type="text" placeholder="Enter Comments"><p></p></td>
             </tr>
         </table>
         <button type="submit">Create</button>
         <p>{{statusMsg}}</p>
     </form>
-  </ValidationObserver>
-</div>
+    </ValidationObserver>
+    </div>
 </template>
 
 <script>
@@ -53,43 +57,40 @@
 import { ValidationObserver } from 'vee-validate'
 import { ValidationProvider } from 'vee-validate';
 import { extend } from 'vee-validate';
-import { required, email, min } from 'vee-validate/dist/rules';
+import { required } from 'vee-validate/dist/rules';
 
 // RULES
 extend('required', {
   ...required,
   message: 'This field is required'
 });
-extend('email', email);
-extend('min', {
-  ...min,
-  message: 'Must have at least {length} characters'
-});
 
 export default {
-name: 'ManagerData',
+name: 'JobData',
     components: {
         ValidationObserver,
         ValidationProvider
     },
     data(){
         return{
-        Firstname: '',
-        Lastname: '',
-        Email: '',
-        Password: '',
+        Costumer: '',
+        StartDate: Date,
+        Days: Number,
+        Location: '',
+        Comments: '',
         statusMsg: ''
         }
     },
     methods:{
-        CreateManager(){
-            fetch('https://localhost:44368/api/Managers', { 
+        CreateJob(){
+            fetch('https://localhost:44368/api/Jobs', { 
                 method: 'POST',
                 body: JSON.stringify({
-                    firstname: this.Firstname,
-                    lastname: this.Lastname,
-                    email: this.Email,
-                    password: this.Password
+                    costumer: this.Costumer,
+                    startDate: this.StartDate,
+                    days: parseInt(this.Days),
+                    location: this.Location,
+                    comments: this.Comments
                     }),
                 credentials: 'include',
                 headers: {
@@ -102,7 +103,7 @@ name: 'ManagerData',
                     this.statusMsg = 'Unsuccesful';
                 }
                 else{
-                    this.statusMsg = 'Succesfully created manager';
+                    this.statusMsg = 'Succesfully created job';
                 }
             })
             .catch(error => {

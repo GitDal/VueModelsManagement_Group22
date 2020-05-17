@@ -248,6 +248,9 @@ name: 'ModelData',
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    p{
+        color:red;
+    }
     table{
         text-align: left;
         margin: 2% auto 2% auto;
