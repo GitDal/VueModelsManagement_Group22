@@ -242,6 +242,13 @@ name: 'ModelData',
                 console.error(error);
             });
         }
+    },
+    mounted() {
+            var id = this.$store.getters.userId;
+
+            if (id !== '-1') {
+                this.$router.push('/');
+            }
     }
 }
 </script>

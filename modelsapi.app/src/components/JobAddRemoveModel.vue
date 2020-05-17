@@ -37,6 +37,10 @@
                     if (res.status == 200 || res.status == 201) {
                         this.statusMsg = res.status + ': Successfully added model with Id-' + this.modelId + ' to the job';
                     }
+                    else if (res.status == 403)
+                    {
+                        this.statusMsg = res.status + ': Access Denied';
+                    }
                     else {
                         this.statusMsg = res.status + ': Error';
                     }
@@ -61,6 +65,10 @@
                 .then(res => {
                     if (res.status == 200 || res.status == 202) {
                         this.statusMsg = res.status + ': Successfully deleted model with Id-' + this.modelId + ' from the job';
+                    }
+                    else if (res.status == 403)
+                    {
+                        this.statusMsg = res.status + ': Access Denied';
                     }
                     else {
                         this.statusMsg = res.status + ': Error';

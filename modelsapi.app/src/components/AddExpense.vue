@@ -3,7 +3,7 @@
         <table>
             <tr>
                 <td><label>Amount:</label></td>
-                <td><input v-model="expenseAmount" class="input" type="number" placeholder="Enter Expense"></td>
+                <td><input v-model="expenseAmount" class="input" type="number" placeholder="Enter Expense"> kr.</td>
             </tr>
             <tr>
                 <td><label>Note:</label></td>
@@ -11,6 +11,7 @@
             </tr>
         </table>
         <button @click="addExpense">Add Expense</button>
+        <p>{{ statusMsg }}</p>
     </div>
    
 </template>
@@ -23,7 +24,8 @@
         data() {
             return {
                 expenseAmount: '',
-                note: ''
+                note: '',
+                statusMsg: ''
             }
         },
         methods: {
@@ -54,20 +56,24 @@
                         'Content-Type': 'application/json' 
                         }})
                 .then(res => {
-                    if(res.status == 200)
+                    if(res.status == 200 || res.status == 201)
                     {
+                        this.statusMsg = res.status + ': Successfully added the expense (' + this.expenseAmount + ' kr.) to the job!';
                         return res.json();
+                    }
+                    else if (res.status == 403)
+                    {
+                        this.statusMsg = res.status + ': Access Denied';
                     }
                 })
                 .then(responseJson => { 
                     console.log(responseJson);
+                    this.expenseAmount = '';
+                    this.note = '';
                 })
                 .catch(error => {
                     console.error('Something bad happened ' + error);
                 });
-
-                this.expenseAmount = '';
-                this.note = '';
             },
             getNow() {
                 return moment().format();
@@ -82,5 +88,9 @@
 </script>
 
 <style scoped>
-
+    p {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: small;
+        margin: 5px;
+    }
 </style>

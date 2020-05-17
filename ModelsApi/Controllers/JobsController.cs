@@ -131,7 +131,7 @@ namespace ModelsApi.Controllers
         /// <param name="modelId">modelId</param>
         /// <returns></returns>
         [HttpPost("{jobId}/model/{modelId}")]
-        //[Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager")]
         public async Task<ActionResult<EfJob>> AddModelToJob(long jobId, long modelId)
         {
             var job = await _context.Jobs.FindAsync(jobId).ConfigureAwait(false);
@@ -176,7 +176,7 @@ namespace ModelsApi.Controllers
         /// <param name="modelId">ModelId</param>
         /// <returns></returns>
         [HttpDelete("{jobId}/model/{modelId}")]
-        //[Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager")]
         public async Task<ActionResult<EfJob>> RemoveModelFromJob(long jobId, long modelId)
         {
             var jobModel = await _context.JobModels.Where(

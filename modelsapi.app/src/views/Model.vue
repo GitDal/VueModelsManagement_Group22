@@ -1,7 +1,7 @@
 <template>
     <div class="model">
         <h2>Model page</h2>
-        <JobsListForModel></JobsListForModel>
+        <JobsListForModel v-if="hasAccess"></JobsListForModel>
     </div>
 </template>
 
@@ -11,8 +11,23 @@
 
     export default {
         name: 'Model',
+        data() {
+            return {
+                hasAccess: false
+            }
+        },
         components: {
             JobsListForModel
+        },
+        mounted() {
+            var id = this.$store.getters.userId;
+
+            if (id == '-1') {
+                this.$router.push('/');
+            }
+            else {
+                this.hasAccess = true;
+            }
         }
     }
 </script>
