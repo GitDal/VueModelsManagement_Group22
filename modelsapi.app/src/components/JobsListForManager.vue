@@ -11,17 +11,17 @@
                     <b-td>Days</b-td>
                     <b-td>Location</b-td>
                     <b-td>Comments</b-td>
-                    <b-td>Add Expense</b-td>
+                    <b-td>Add/Remove Model</b-td>
                 </b-tr>
             </b-thead>
             <b-tbody>
                 <b-tr v-for="job in jobs" :key="job.efJobId">
                     <b-td>{{ job.customer }}</b-td>
-                    <b-td>{{ job.startDate | formatDate }}</b-td>
+                    <b-td>{{ job.startDate }}</b-td>
                     <b-td>{{ job.days }}</b-td>
                     <b-td>{{ job.location }}</b-td>
                     <b-td>{{ job.comments }}</b-td>
-                    <b-td><AddExpense :jobId="job.efJobId"></AddExpense></b-td>
+                    <b-td><JobAddRemoveModel></JobAddRemoveModel></b-td>
                 </b-tr>
             </b-tbody>
         </b-table-simple>
@@ -29,7 +29,8 @@
 </template>
 
 <script>
-    import AddExpense from '@/components/AddExpense.vue'
+    import JobAddRemoveModel from '@/components/JobAddRemoveModel.vue'
+
 
 export default {
     name: 'JobsListForModel',
@@ -41,7 +42,7 @@ export default {
         }
     },
     components: {
-        AddExpense
+        JobAddRemoveModel
     },
     mounted(){
         fetch('https://localhost:44368/api/Jobs', { 
@@ -70,6 +71,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
