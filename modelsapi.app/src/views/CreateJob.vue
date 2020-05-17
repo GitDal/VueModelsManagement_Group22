@@ -5,10 +5,10 @@
     <form @submit.prevent="handleSubmit(CreateJob)">
         <table>
             <tr>
-                <td><label>Costumer*</label></td>
+                <td><label>Customer*</label></td>
                 <td>
-                    <ValidationProvider name="costumer" rules="required" v-slot="{ errors }">
-                        <input v-model="Costumer" class="input" type="text" placeholder="Enter Costumer">
+                    <ValidationProvider name="customer" rules="required" v-slot="{ errors }">
+                        <input v-model="Customer" class="input" type="text" placeholder="Enter Customer">
                         <p>{{errors[0]}}</p>
                     </ValidationProvider>
                 </td>
@@ -41,7 +41,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label>Comments*</label></td>
+                <td><label>Comments</label></td>
                 <td><input v-model="Comments" class="input" type="text" placeholder="Enter Comments"><p></p></td>
             </tr>
         </table>
@@ -73,9 +73,9 @@ name: 'JobData',
     },
     data(){
         return{
-        Costumer: '',
-        StartDate: Date,
-        Days: Number,
+        Customer: '',
+        StartDate: '',
+        Days: '',
         Location: '',
         Comments: '',
         statusMsg: ''
@@ -86,7 +86,7 @@ name: 'JobData',
             fetch('https://localhost:44368/api/Jobs', { 
                 method: 'POST',
                 body: JSON.stringify({
-                    costumer: this.Costumer,
+                    customer: this.Customer,
                     startDate: this.StartDate,
                     days: parseInt(this.Days),
                     location: this.Location,
