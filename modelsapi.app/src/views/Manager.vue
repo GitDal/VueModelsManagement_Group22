@@ -2,10 +2,11 @@
   <div class="manager">
     <h1>Manager page</h1>
       <!--Her skal der være links i think (måske navbar)-->
-      <div>
-          <router-link to="/manager/createModel">Create Model</router-link> <br />
-          <router-link to="/manager/createManager">Create Manager</router-link>
-      </div>
+    <div>
+        <router-link to="/manager/createModel">Create Model</router-link> <br />
+        <router-link to="/manager/createManager">Create Manager</router-link> <br />
+        <router-link to="/manager/createJob">Create Job</router-link>
+    </div>
     <JobsList></JobsList>
   </div>
 </template>

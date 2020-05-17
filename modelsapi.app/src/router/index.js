@@ -51,7 +51,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "createManager" */ '../views/CreateManager.vue')
     },
     {
-        path: '/createJob',
+        path: '/manager/createJob',
         name: 'CreateJob',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
