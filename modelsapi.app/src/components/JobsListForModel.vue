@@ -1,4 +1,4 @@
-<!--<template>
+<template>
     <div>
         <div v-if="isLoading">
             <p>Loading content..</p>
@@ -11,7 +11,7 @@
                     <b-td>Days</b-td>
                     <b-td>Location</b-td>
                     <b-td>Comments</b-td>
-                    <b-td></b-td>
+                    <b-td>Add Expense</b-td>
                 </b-tr>
             </b-thead>
             <b-tbody>
@@ -21,15 +21,7 @@
                     <b-td>{{ job.days }}</b-td>
                     <b-td>{{ job.location }}</b-td>
                     <b-td>{{ job.comments }}</b-td>
-                    <b-td>
-                        <table>
-                            <tr>
-                                <td><label>Add Expense</label></td>
-                                <td><input v-model="expenses[{{ job.efJobId }}]" class="input" type="number" placeholder="Enter Expense"></td>
-                            </tr>
-                        </table>
-                        <button @click="addExpense({{ job.efJobId }})">Add Expense</button>
-                    </b-td>
+                    <b-td><AddExpense :jobId="job.efJobId"></AddExpense></b-td>
                 </b-tr>
             </b-tbody>
         </b-table-simple>
@@ -37,6 +29,8 @@
 </template>
 
 <script>
+    import AddExpense from '@/components/AddExpense.vue'
+
 export default {
     name: 'JobsListForModel',
     data() {
@@ -46,43 +40,8 @@ export default {
             jobs: []
         }
     },
-    methods: {
-        addExpense(jobId) {
-            let expenseAmount = this.expenses[jobId];
-
-            fetch('https://localhost:44368/api/Expenses', { 
-                method: 'POST',
-                body: JSON.stringify({
-                    modelId: this.getModelId(),
-                    jobId: jobId,
-                    date: new Date().toLocaleDateString,
-                    text: "string",
-                    amount: expenseAmount
-                }),
-                credentials: 'include',
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                    'Content-Type': 'application/json' 
-                    }})
-            .then(res => {
-                if(res.status == 200)
-                {
-                    return res.json();
-                }
-            })
-            .then(responseJson => { 
-                console.log(responseJson);
-            })
-            .catch(error => {
-                this.message = 'Something bad happened ' + error;
-            });
-
-        }
-    },
-    computed: {
-        getModelId() {
-            return this.$store.getters.userId;
-        }
+    components: {
+        AddExpense
     },
     mounted(){
         fetch('https://localhost:44368/api/Jobs', { 
@@ -113,8 +72,4 @@ export default {
 
 <style scoped>
 
-    #table {
-        text-decoration-color: aqua;
-    }
-
-</style>-->
+</style>
