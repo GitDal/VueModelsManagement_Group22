@@ -1,5 +1,6 @@
 <template>
-  <div class="createManager">
+  <ValidationObserver v-slot="{ handleSubmit }">
+    <form @submit.prevent="handleSubmit(CreateManager)">
         <table>
             <tr>
                 <td><label>Firstname</label></td>
@@ -38,9 +39,10 @@
                 </td>
             </tr>
         </table>
-        <button @click="CreateManager">Create</button>
+        <button type="submit">Create</button>
         <p>{{statusMsg}}</p>
-    </div>
+    </form>
+  </ValidationObserver>
 </template>
 
 <script>
