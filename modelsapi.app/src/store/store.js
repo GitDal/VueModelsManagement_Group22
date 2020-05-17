@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from "vuex-persistedstate";
 
 // Taget udgangspunkt i:
 // medium.com/front-end-weekly/persisting-user-authentication-with-vuex-in-vue-b1514d5d3278
@@ -7,6 +8,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
+    plugins: [createPersistedState()],
     state: {
         isLoggedIn: !!localStorage.getItem('token'),
         userId: 'unknown'
